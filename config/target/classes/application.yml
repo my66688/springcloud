@@ -1,0 +1,36 @@
+server:
+  port: 3344
+spring:
+  # RabbitMQ相关配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: config-server #注册进Eureka服务器的服务名称
+  cloud:
+    config:
+      server:
+        git:
+          basedir: E:\Project\springcloud\config
+          skipSslValidation: true #跳过ssl认证
+          force-pull: true
+          timeout: 10 #默认5秒
+          uri: https://github.com/my66688/config.git #GitHub上复制的项目地址
+#            username: my66688@163.com
+#            password: weirisheng8888
+          search-paths: #搜索目录
+            - config
+      label: master #读取分支
+# 暴露总线刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+#服务注册到eureka地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
